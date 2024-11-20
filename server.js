@@ -5,7 +5,9 @@ const PORT = 8800;
 
 app.get("/", (req,res)=>{
     
-        res.send("Hello");
+    res.send({
+        msg : "Hello Data Fetch Successfully..!"
+    })
 })
 
 
