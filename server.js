@@ -3,6 +3,8 @@ const app = express();
 
 const PORT = 8800;
 
+app.use(express.json());
+
 const routes = require("./routes/routes");
 
 routes(app);
