@@ -1,11 +1,13 @@
-import { PrismaClient } from '@prisma/client'
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
 
-const index = (req, res) => {
-  res.send({
-    msg: "Hello Data Fetch From Index Method..!",
-  });
+const index = async (req, res) => {
+
+  let response = await prisma.articals.findMany();
+  res.send(
+    response
+  );
 };
 
  const  create = async  (req, res) => {
@@ -33,17 +35,33 @@ const update = (req, res) => {
   });
 };
 
-const destory = (req, res) => {
+const destory = async (req, res) => {
+try {
+    await prisma.articals.delete({
+      where: {
+        id:parseInt(req.params.id)
+      }
+    })
   res.send({
     msg: "Data Deleted..!",
   });
 
+}catch(error) {
+
+res.send({error})
+}
+
   
 };
 
-const details = (req, res) => {
+const details = async (req, res) => {
+  let response = await prisma.articals.findUnique({
+    where :  {
+      id: parseInt(req.params.id)
+    }
+  })
   res.send({
-    msg: "Details Get ID Wise",
+    response
   });
 };
 
