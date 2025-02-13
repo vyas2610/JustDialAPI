@@ -13,7 +13,6 @@ const index = async (req, res) => {
  const  create = async  (req, res) => {
   try {
     let data = req.body;
-    console.log('Data is:'  + data);
      await prisma.articals.create({
       data
      })
@@ -29,10 +28,26 @@ const index = async (req, res) => {
 
 };
 
-const update = (req, res) => {
-  res.send({
-    msg: "Data Updated..!",
-  });
+const update = async (req, res) => {
+  try {
+      let data = req.body;
+        await prisma.articals.update({
+          where: {
+            id: parseInt(req.params.id)
+          },
+          data
+        })
+    res.send({
+      msg: "Data Updated..!",
+    });
+
+  }
+  catch(error){
+      res.send({
+        error
+      })
+  }
+
 };
 
 const destory = async (req, res) => {
